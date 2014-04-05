@@ -1,6 +1,6 @@
 var mongo = require('mongodb').MongoClient
 var NodePbkdf2 = require('node-pbkdf2')
-var helpers = require('../lib/helpers.js')
+var helpers = require('../lib/helpers')
 
 module.exports = function(server, restify){
 	server.post('/login', function (req, res, next) {
@@ -15,23 +15,22 @@ module.exports = function(server, restify){
 		var user = helpers.findUserByEmail(email)
 		
 		if(!user) {
-			return next(new restify.InvalidCredentialsError('Email wrong'))
+			return next(new restify.InvalidCredentialsError('Email or password wrong'))
 		}
 		
-		var passOk = false
-		console.log(user.password)
+		var passwordStatus = false
 		hasher.checkPassword(password, user.password, function(err, status) {
-			passOk = status
+			passwordStatus = status
+			
+			if(!passwordStatus) {
+				return next(new restify.InvalidCredentialsError('Email or password wrong'))
+			}
+			
+			var token = session.create(user._id)
+			session.sendHeader(res, token)
+			
+			res.send({result: 1})
+			next()
 		})
-		
-		if(!passOk) {
-			return next(new restify.InvalidCredentialsError('Password wrong'))
-		}
-		
-		var token = session.create(user._id)
-		session.sendHeader(res, token)
-		
-		res.send({result: 1})
-		return next()
 	})
 }
