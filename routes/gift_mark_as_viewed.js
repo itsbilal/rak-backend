@@ -1,4 +1,5 @@
 var mongo = require("mongodb").MongoClient
+var ObjectID = require("mongodb").ObjectID
 var helpers = require("../lib/helpers.js")
 
 module.exports = function(server, restify) {
@@ -14,11 +15,13 @@ module.exports = function(server, restify) {
 
 			db.collection("gifts", function(err, collection) {
 				if (err) {helpers.handleError(err); return}
-				collection.update({"_id":id},
-					{$set:{"viewed":true}},
-					function(err, result){
+				collection.findOne({"_id":ObjectID(id)}, function(err, result){
+					result.viewed = true
+					collection.save(result, function(err, result){
 						res.send({"result":1})
 					})
+				})
+
 			})
 		})
 
