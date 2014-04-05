@@ -13,7 +13,7 @@ module.exports = function(server, restify) {
 		var object_to_store = {
 			"sender": server.session.isAuthenticated,
 			"receiver": "TO_BE_FILLED",
-			"gift_id": gift_id,
+			"gift": helpers.getGift(gift_id),
 			"viewed": false
 		}
 
@@ -22,7 +22,7 @@ module.exports = function(server, restify) {
 				db.collection("gifts", function(err, collection) {
 					helpers.findRandomUser(server.session.isAuthenticated, function(err, receiver) {
 
-						if (err) res.send({"result": 0})
+						if (err) {res.send({"result": 0}); return}
 						object_to_store.receiver = receiver._id
 
 						collection.insert(object_to_store, function(err, records) {

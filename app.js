@@ -31,7 +31,9 @@ server.use(restify.CORS({
 
 server.pre(function(req, res, next) {
 	var token = req.header('X-Session-Token', '')
+
 	res.header('Application-Type', 'application/json')
+	restify.pre.sanitizePath()
 	
 	session.init(token)
 	
