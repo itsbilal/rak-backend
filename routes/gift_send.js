@@ -11,19 +11,26 @@ module.exports = function(server, restify) {
 			return next(new restify.NotAuthorizedError('This resource requires authentication'))
 
 		var object_to_store = {
-			// TODO: ObjectID
 			"sender": server.session.isAuthenticated,
-			"receiver": "53404768f0b7224d2fe0fb89",
-			"gift_id": "1"
+			"receiver": "TO_BE_FILLED",
+			"gift_id": gift_id,
+			"viewed": false
 		}
 
 		mongo.connect(config.dbpath, function(err, db){
 			if (!err) {
 				db.collection("gifts", function(err, collection) {
-					collection.insert(object_to_store, function(err, records) {
-						if (!err) {
-							res.send({"result": 1})
-						} // TODO: Error conveying thing
+					helpers.findRandomUser(server.session.isAuthenticated, function(err, receiver) {
+
+						if (err) res.send({"result": 0})
+						object_to_store.receiver = receiver._id
+
+						collection.insert(object_to_store, function(err, records) {
+							if (!err) {
+								res.send({"result": 1})
+							} // TODO: Error conveying thing
+						})
+
 					})
 				})
 			}
