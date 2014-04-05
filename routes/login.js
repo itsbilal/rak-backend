@@ -36,9 +36,9 @@ module.exports = function(server, restify){
 			return next(new restify.InvalidCredentialsError('Email or password wrong'))
 		}
 		
-		res.session = session.create(user._id)
+		var token = session.create(user._id)
+		session.sendHeader(res, token)
 		
-		res.refreshSession = true
 		res.send({result: 1})
 		return next()
 	})
