@@ -13,10 +13,12 @@ module.exports = function(server, restify) {
 
 			db.collection("gifts", function(err, collection) {
 				if (err) {res.send({"result":0}); return}
-				collection.find({"sender":user, "viewed":"false"}, function(err, cursor){
+				collection.find({"receiver":user, "viewed":false}, function(err, cursor){
 					if (err) {res.send({"result":0}); return}
 
-					res.send({"gifts":cursor.toArray()})
+					cursor.toArray(function(err, result){
+						res.send({"gifts": result})
+					})
 				})
 			})
 		})

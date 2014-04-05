@@ -15,7 +15,7 @@ module.exports = function(server, restify) {
 			db.collection("gifts", function(err, collection) {
 				if (err) {helpers.handleError(err); return}
 				collection.update({"_id":id},
-					{$set:{"viewed":"true"}},
+					{$set:{"viewed":true}},
 					function(err, result){
 						res.send({"result":1})
 					})
