@@ -28,7 +28,7 @@ server.use(restify.CORS({
 }))
 
 // Routing
-require('./routes')(server)
+require('./routes')(server, restify)
 
 server.listen(config.httpPort, function () {
 	console.log('%s listening at %s', server.name, server.url)
