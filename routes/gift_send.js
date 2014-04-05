@@ -5,7 +5,7 @@ var helpers = require("../lib/helpers.js")
 module.exports = function(server, restify) {
 	server.post("/gifts/", function(req, res, next) {
 		var gift_id = req.params.id
-		var config = server.config
+		var config = server.appConfig
 
 		if(!server.session.isAuthenticated)
 			return next(new restify.NotAuthorizedError('This resource requires authentication'))
