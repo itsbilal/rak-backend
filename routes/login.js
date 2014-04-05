@@ -1,8 +1,6 @@
-var mongo = require('mongodb')
+var mongo = require('mongodb').MongoClient
 var NodePbkdf2 = require('node-pbkdf2')
-
-var users =
-	[{"_id":"534021435c35eb8c10339233","email":"alessandro.segala@gmail.com","password":"7eZCp9M8SuXF::LG6erTrV0c3Fhvlr+QtE59TIcILTTbXam0xA2nQN::30::10000"}]
+var helpers = require('../lib/helpers.js')
 
 module.exports = function(server, restify){
 	server.post('/login', function (req, res, next) {
@@ -13,15 +11,8 @@ module.exports = function(server, restify){
 		
 		var hasher = new NodePbkdf2({ iterations: 10000, saltLength: 12, derivedKeyLength: 30 })
 		
-		var i = users.length
 		var encryptedPassword = false
-		var user = false
-		while(i--) {
-			if(users[i].email == email) {
-				user = users[i]
-				break
-			}
-		}
+		var user = helpers.findUserByEmail(email)
 		
 		if(!user) {
 			return next(new restify.InvalidCredentialsError('Email or password wrong'))

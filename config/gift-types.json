@@ -1,0 +1,11 @@
+{
+	"gifts": [
+		{
+			"id": 1,
+			"type": "gift",
+			"title": "",
+			"value": 1.30,
+			"image": "http://example.com/starbucks.jpg"
+		}
+	],
+}
