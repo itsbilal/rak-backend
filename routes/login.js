@@ -28,9 +28,9 @@ module.exports = function(server, restify){
 		}
 		
 		var passOk = false
-		if(hasher.checkPassword(password, user.password, function(err, status) {
+		hasher.checkPassword(password, user.password, function(err, status) {
 			passOk = status
-		}))
+		})
 		
 		if(!passOk) {
 			return next(new restify.InvalidCredentialsError('Email or password wrong'))
