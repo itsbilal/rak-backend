@@ -30,7 +30,14 @@ server.use(restify.CORS({
 }))
 
 server.pre(function(req, res, next) {
-	req.session = req.header('X-Session-Token', '')
+	var token = req.header('X-Session-Token', '')
+	
+	session.init(token)
+	
+	console.log(session.isAuthenticated ? 'Authenticated: ' + session.isAuthenticated : 'NOT Authenticated')
+	
+	if(session.isAuthenticated)
+		session.refreshIfNeeded(res, token)
 	return next()
 })
 
