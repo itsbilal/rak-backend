@@ -1,4 +1,3 @@
-var mongo = require('mongodb').MongoClient
 var NodePbkdf2 = require('node-pbkdf2')
 var helpers = require('../lib/helpers')
 
