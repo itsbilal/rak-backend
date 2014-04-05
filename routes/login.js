@@ -15,16 +15,17 @@ module.exports = function(server, restify){
 		var user = helpers.findUserByEmail(email)
 		
 		if(!user) {
-			return next(new restify.InvalidCredentialsError('Email or password wrong'))
+			return next(new restify.InvalidCredentialsError('Email wrong'))
 		}
 		
 		var passOk = false
+		console.log(user.password)
 		hasher.checkPassword(password, user.password, function(err, status) {
 			passOk = status
 		})
 		
 		if(!passOk) {
-			return next(new restify.InvalidCredentialsError('Email or password wrong'))
+			return next(new restify.InvalidCredentialsError('Password wrong'))
 		}
 		
 		var token = session.create(user._id)

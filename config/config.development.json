@@ -3,5 +3,5 @@
 	"domain":			"localhost",
 	"http-port":		8080,
 	"allow-origin":		["http://localhost", "https://localhost"],
-	"dbpath":			"mongodb://localhost:27017/raktest",
+	"dbpath":			"mongodb://localhost:27017/raktest"
 }

@@ -1,6 +1,6 @@
-var gift_types = require("../config/")
+var gift_types = require("../config/gift-types.json")
 var mongo = require("mongodb").MongoClient
-var helpers = rquire("../lib/helpers.js")
+var helpers = require("../lib/helpers.js")
 
 module.exports = function(server, restify) {
 	server.post("/gifts/", function(req, res, next) {
@@ -11,6 +11,7 @@ module.exports = function(server, restify) {
 			return next(new restify.NotAuthorizedError('This resource requires authentication'))
 
 		var object_to_store = {
+			// TODO: ObjectID
 			"sender": server.session.isAuthenticated,
 			"receiver": "53404768f0b7224d2fe0fb89",
 			"gift_id": "1"
