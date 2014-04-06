@@ -51,4 +51,3 @@ server.listen(config.httpPort, function () {
 	console.log('%s listening at %s', server.name, server.url)
 })
 
-require('./push')(server)
