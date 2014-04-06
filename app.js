@@ -11,7 +11,7 @@ var server = restify.createServer({
 	/*certificate: fs.readFileSync('ssl/ssl-cert.pem'),
 	key: fs.readFileSync('ssl/ssl-key.pem'),*/
 	
-	name: 'restify-boilerplate',
+	name: 'rak-backend',
 	version: '1.0.0'
 })
 
@@ -50,3 +50,5 @@ require('./routes')(server, restify)
 server.listen(config.httpPort, function () {
 	console.log('%s listening at %s', server.name, server.url)
 })
+
+require('./push')(server)
