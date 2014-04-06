@@ -1,7 +1,7 @@
 {
-	"baseurl":			"https://localhost",
-	"domain":			"localhost",
-	"http-port":		8080,
-	"allow-origin":		["http://localhost", "https://localhost"],
-	"dbpath":			"mongodb://localhost:27017/raktest"
+        "baseurl":                      "https://api.glidr.ca",
+        "domain":                       "api.glidr.ca",
+        "http-port":            8080,
+        "allow-origin":         ["http://localhost", "https://localhost"],
+        "dbpath":                       "mongodb://10.179.6.187:27017/raktest"
 }
