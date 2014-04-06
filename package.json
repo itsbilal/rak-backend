@@ -8,7 +8,6 @@
 	"dependencies": {
 		"restify": "2.7.x",
 		"node-pbkdf2": "0.1.x",
-		"mongodb": "1.4.x",
-		"socket.io": "0.9.x"
+		"mongodb": "1.4.x"
 	}
 }
